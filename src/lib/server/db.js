@@ -7,7 +7,6 @@ const staticQueries = {
     "selectUsers": "select * from users",
     "selectAccounts": "select * from accounts",
     "selectAssets": "select * from assets",
-    "selectTodos": "select * from todos",
     "selectPersonnels": "select * from personnels",
     "selectProjects": "select * from projects",
     "selectPriorities": "select * from priorities"
@@ -33,8 +32,14 @@ export async function getAssets() {
     return getQuery(staticQueries["selectAssets"]);
 }
 
-export async function getTodos() {
-    return getQuery(staticQueries["selectTodos"]);
+export async function getTakenTodos(sessionId) {
+    let user = await getUserFromSession(sessionId)
+    return getQuery(`select * from todos where id in (select todo_id from associate_ids where associate_id = ${user[0].id} union select todo_id from supervisor_ids where supervisor_id = ${user[0].id})`);
+}
+
+export async function getGivenTodos(sessionId) {
+    let user = await getUserFromSession(sessionId)
+    return getQuery(`select * from todos where taskmaster_id = ${user[0].id}`);
 }
 
 export async function getPersonnels() {

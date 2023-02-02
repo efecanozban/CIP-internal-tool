@@ -1,8 +1,10 @@
-import { getTodos, getPersonnels, getPriorities, getProjects } from "$lib/server/db.js";
+import { getTakenTodos, getGivenTodos, getPersonnels, getPriorities, getProjects, getUserFromSession } from "$lib/server/db.js";
 
-export async function load() {
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ cookies }) {
     return {
-        todos: await getTodos(),
+        takenTodos: await getTakenTodos(cookies.get('sessionid')),
+        givenTodos: await getGivenTodos(cookies.get('sessionid')),
         personnels: await getPersonnels(),
         projects: await getPriorities(),
         priorities: await getProjects()

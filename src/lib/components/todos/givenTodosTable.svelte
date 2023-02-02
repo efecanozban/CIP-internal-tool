@@ -1,5 +1,5 @@
 <script>
-    export let todos;
+    export let givenTodos;
 
     let tableHeadings = [
         "Task Title",
@@ -21,7 +21,7 @@
     </thead>
 
     <tbody>
-        {#each todos as todo}
+        {#each givenTodos as todo}
             <tr>
                 <td>{todo.title}</td>
                 <td>{todo.taskmaster_id}</td>

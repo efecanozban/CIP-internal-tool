@@ -4,9 +4,9 @@
     import TakenTodosTable from "$lib/components/todos/takenTodosTable.svelte";
 
     export let data;
-    let { todos, personnels, projects, priorities } = data;
+    let { takenTodos, givenTodos, personnels, projects, priorities } = data;
 </script>
 
-<GivenTodosTable {todos} />
+<GivenTodosTable {givenTodos} />
 <NewTodoForm {personnels} {projects} {priorities} />
-<TakenTodosTable {todos} />
+<TakenTodosTable {takenTodos} />
