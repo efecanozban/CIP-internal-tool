@@ -1,4 +1,5 @@
 <script>
+    import { msToDate, DdMmYyyy } from "$lib/utils/stringModifiers";
     export let givenTodos;
 
     let tableHeadings = [
@@ -10,6 +11,7 @@
         "Expected Deadline",
         "Informed Associates",
         "Priroity",
+        "Remaining Time",
     ];
 </script>
 
@@ -28,9 +30,10 @@
                 <td>{todo.associate_ids}</td>
                 <td>{todo.project_id}</td>
                 <td>{todo.task_content}</td>
-                <td>{todo.expected_deadline}</td>
+                <td>{DdMmYyyy(todo.expected_deadline)}</td>
                 <td>{todo.informed_associate_ids}</td>
                 <td>{todo.priority}</td>
+                <td>{msToDate(todo.expected_deadline - Date.now())}</td>
             </tr>
         {/each}
     </tbody>

@@ -17,17 +17,17 @@
 <style>
     #assetsTable {
         position: relative;
-        left: 12.5vw;
+        left: 7.5vw;
         top: 3vh;
-        width: 75vw;
+        width: 85vw;
         display: grid;
-        grid-template-columns: 15vw 15vw 15vw 15vw;
+        grid-template-columns: repeat(6, 10vw);
         grid-template-rows: 45vh;
         grid-gap: 5vw;
     }
 
     img {
-        width: 15vw;
-        height: 30vh;
+        width: 10vw;
+        height: 20vh;
     }
 </style>

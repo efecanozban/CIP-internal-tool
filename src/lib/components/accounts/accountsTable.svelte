@@ -1,7 +1,7 @@
 <script>
     export let accounts;
 
-    let tableHeadings = ["Context", "Username", "Password"];
+    let tableHeadings = ["Context", "Username", "Password", "URL"];
 </script>
 
 <table>
@@ -17,6 +17,7 @@
                 <td>{account.context}</td>
                 <td>{account.username}</td>
                 <td>{account.password}</td>
+                <td>{account.url}</td>
             </tr>
         {/each}
     </tbody>

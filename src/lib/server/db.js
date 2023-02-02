@@ -34,7 +34,12 @@ export async function getAssets() {
 
 export async function getTakenTodos(sessionId) {
     let user = await getUserFromSession(sessionId)
-    return getQuery(`select * from todos where id in (select todo_id from associate_ids where associate_id = ${user[0].id} union select todo_id from supervisor_ids where supervisor_id = ${user[0].id})`);
+    return getQuery(`select * from todos where id in (select todo_id from associate_ids where associate_id = ${user[0].id})`);
+}
+
+export async function getWatchingTodos(sessionId) {
+    let user = await getUserFromSession(sessionId)
+    return getQuery(`select * from todos where id in (select todo_id from supervisor_ids where supervisor_id = ${user[0].id})`);
 }
 
 export async function getGivenTodos(sessionId) {
