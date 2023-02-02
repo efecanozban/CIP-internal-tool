@@ -1,5 +1,19 @@
 <script>
+    import ImageMoodle from "$lib/components/general/imageMoodle.svelte";
+    import { onMount } from "svelte";
     export let assets;
+
+    let showImageMoodle = false;
+    let selectedAssetSrc;
+
+    onMount(() => {
+        document.querySelectorAll("#assetDiv").forEach(function (asset) {
+            asset.addEventListener("click", function () {
+                selectedAssetSrc = asset.getElementsByTagName("img")[0].src;
+                showImageMoodle = !showImageMoodle;
+            });
+        });
+    });
 </script>
 
 <div id="assetsTable">
@@ -13,6 +27,8 @@
         </div>
     {/each}
 </div>
+
+<ImageMoodle src={selectedAssetSrc} {showImageMoodle} />
 
 <style>
     #assetsTable {
