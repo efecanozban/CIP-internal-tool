@@ -7,6 +7,7 @@
         "Project",
         "Task Master",
         "Associates",
+        "Supervisors",
         "Task Content",
         "Expected Deadline",
         "Informed Associates",
@@ -15,26 +16,43 @@
     ];
 </script>
 
-<table>
-    <thead>
-        {#each tableHeadings as heading}
-            <th>{heading}</th>
-        {/each}
-    </thead>
+<div class="centered-div">
+    <table>
+        <thead>
+            {#each tableHeadings as heading}
+                <th>{heading}</th>
+            {/each}
+        </thead>
 
-    <tbody>
-        {#each givenTodos as todo}
-            <tr>
-                <td>{todo.title}</td>
-                <td>{todo.taskmaster_id}</td>
-                <td>{todo.associate_ids}</td>
-                <td>{todo.project_id}</td>
-                <td>{todo.task_content}</td>
-                <td>{DdMmYyyy(todo.expected_deadline)}</td>
-                <td>{todo.informed_associate_ids}</td>
-                <td>{todo.priority}</td>
-                <td>{msToDate(todo.expected_deadline - Date.now())}</td>
-            </tr>
-        {/each}
-    </tbody>
-</table>
+        <tbody>
+            {#each givenTodos as todo}
+                <tr>
+                    <td>{todo.title}</td>
+                    <td>{todo.project}</td>
+                    <td>{todo.taskmaster}</td>
+                    <td>{todo.associates}</td>
+                    <td>{todo.supervisors}</td>
+                    <td>{todo.task_context}</td>
+                    <td>{DdMmYyyy(todo.expected_deadline)}</td>
+                    <td>{todo.informed_associates}</td>
+                    <td>{todo.priority}</td>
+                    <td>{msToDate(todo.expected_deadline - new Date())}</td>
+                </tr>
+            {/each}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    table {
+        width: 80vw;
+    }
+
+    th {
+        font-weight: 200;
+    }
+
+    td {
+        font-weight: 600;
+    }
+</style>

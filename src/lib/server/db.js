@@ -9,7 +9,11 @@ const staticQueries = {
     "selectAssets": "select * from assets",
     "selectPersonnels": "select * from personnels",
     "selectProjects": "select * from projects",
-    "selectPriorities": "select * from priorities"
+    "selectPriorities": "select * from priorities",
+    "selectTodos": "select * from todos",
+    "selectAssociates": "select * from associate_ids",
+    "selectSupervisors": "select * from supervisor_ids",
+    "selectTags": "select * from tags"
 }
 
 async function getQuery(query) {
@@ -20,52 +24,73 @@ async function getQuery(query) {
     return res.rows
 }
 
-export async function getUsers() {
-    return getQuery(staticQueries["selectUsers"]);
-}
-
-export async function getAccounts() {
-    return getQuery(staticQueries["selectAccounts"]);
-}
-
-export async function getAssets() {
-    return getQuery(staticQueries["selectAssets"]);
-}
-
-export async function getTakenTodos(sessionId) {
-    let user = await getUserFromSession(sessionId)
-    return getQuery(`select * from todos where id in (select todo_id from associate_ids where associate_id = ${user[0].id})`);
-}
-
-export async function getWatchingTodos(sessionId) {
-    let user = await getUserFromSession(sessionId)
-    return getQuery(`select * from todos where id in (select todo_id from supervisor_ids where supervisor_id = ${user[0].id})`);
-}
-
-export async function getGivenTodos(sessionId) {
-    let user = await getUserFromSession(sessionId)
-    return getQuery(`select * from todos where taskmaster_id = ${user[0].id}`);
-}
-
-export async function getPersonnels() {
-    return getQuery(staticQueries["selectPersonnels"]);
-}
-
-export async function getProjects() {
-    return getQuery(staticQueries["selectProjects"]);
-}
-
-export async function getPriorities() {
-    return getQuery(staticQueries["selectPriorities"]);
-}
 
 export async function insertAsset(title, fileContent, content) {
-    getQuery(`insert into assets 
+    return getQuery(`insert into assets 
     (title, image, content) 
     values(
         '${title}', 
         '${fileContent}', 
         '${content}')`)
+}
+
+export async function insertAccount(context, username, password, url, expiration_date) {
+    return getQuery(`insert into accounts 
+    (context, username, password, url, expiration_date) 
+    values(
+        '${context}', 
+        '${username}', 
+        '${password}',
+        '${url}',
+        '${expiration_date}')`)
+}
+
+export async function insertTag(type, name) {
+    return getQuery(`insert into tags 
+    (type, name) 
+    values(
+        '${type}', 
+        '${name}')`)
+}
+
+export async function insertTodo(title, taskmaster_id, project_id, task_context, expected_deadline, priority_id) {
+    return getQuery(`insert into todos 
+    (title, taskmaster_id, project_id, task_context, expected_deadline, priority_id) 
+    values(
+        '${title}', 
+        ${taskmaster_id}, 
+        ${project_id},
+        '${task_context}',
+        '${expected_deadline}',
+        ${priority_id})`)
+}
+
+export async function insertAssociates(todoId, associate_ids) {
+    if (associate_ids.length > 0) {
+
+        let query = `insert into associate_ids (todo_id, associate_id) values `
+
+        for (let i = 0; i < associate_ids.length; i++) {
+            if (i == associate_ids.length - 1) { query += `(${todoId}, ${associate_ids[i]}); ` }
+            else { query += `(${todoId}, ${associate_ids[i]}), ` }
+        }
+
+        return getQuery(query)
+    }
+
+}
+
+export async function insertSupervisors(todoId, supervisor_ids) {
+    if (supervisor_ids.length > 0) {
+        let query = `insert into supervisor_ids (todo_id, supervisor_id) values `
+
+        for (let i = 0; i < supervisor_ids.length; i++) {
+            if (i == supervisor_ids.length - 1) { query += `(${todoId}, ${supervisor_ids[i]}); ` }
+            else { query += `(${todoId}, ${supervisor_ids[i]}), ` }
+        }
+
+        return getQuery(query)
+    }
 }
 
 export async function getUser(username, password) {
@@ -81,10 +106,54 @@ export async function getUser(username, password) {
 
 export async function createSession(user) {
     const sessionID = uuidv4()
-    getQuery(`insert into sessions (id, user_id) values ('${sessionID}', ${user.id})`)
+    await getQuery(`insert into sessions (id, user_id) values ('${sessionID}', ${user.id})`)
     return sessionID
 }
 
 export async function getUserFromSession(sessionId) {
     return getQuery(`select * from users where id = (select user_id from sessions where id = '${sessionId}') `)
+}
+
+export async function getUsers() {
+    return getQuery(staticQueries["selectUsers"]);
+}
+
+export async function getAccounts() {
+    return getQuery(staticQueries["selectAccounts"]);
+}
+
+export async function getAssets() {
+    return getQuery(staticQueries["selectAssets"]);
+}
+
+export async function getTodos(sessionId) {
+    return getQuery(staticQueries["selectTodos"]);
+}
+
+export async function getAssociates(todoId) {
+    return getQuery(staticQueries["selectAssociates"]);
+}
+
+export async function getSupervisors(todoId) {
+    return getQuery(staticQueries["selectSupervisors"]);
+}
+
+export async function getPersonnels() {
+    return getQuery(staticQueries["selectPersonnels"]);
+}
+
+export async function getProjects() {
+    return getQuery(staticQueries["selectProjects"]);
+}
+
+export async function getPriorities() {
+    return getQuery(staticQueries["selectPriorities"]);
+}
+
+export async function getTags() {
+    return getQuery(staticQueries["selectTags"]);
+}
+
+export async function getLatestTodo() {
+    return getQuery("select id from todos order by id limit 1")
 }

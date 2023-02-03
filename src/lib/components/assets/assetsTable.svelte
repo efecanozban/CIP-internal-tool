@@ -33,13 +33,13 @@
 <style>
     #assetsTable {
         position: relative;
-        left: 7.5vw;
+        left: 10vw;
         top: 3vh;
         width: 85vw;
         display: grid;
         grid-template-columns: repeat(6, 10vw);
-        grid-template-rows: 45vh;
-        grid-gap: 5vw;
+        grid-template-rows: 30vh;
+        grid-gap: 4vw;
     }
 
     img {

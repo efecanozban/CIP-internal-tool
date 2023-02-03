@@ -5,15 +5,15 @@
 
     export let data;
     let {
-        takenTodos,
-        givenTodos,
-        watchingTodos,
         personnels,
         projects,
         priorities,
+        takenTodos,
+        watchingTodos,
+        givenTodos,
     } = data;
 </script>
 
-<GivenTodosTable {givenTodos} />
 <NewTodoForm {personnels} {projects} {priorities} />
 <TakenTodosTable {takenTodos} {watchingTodos} />
+<GivenTodosTable {givenTodos} />
