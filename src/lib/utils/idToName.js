@@ -38,3 +38,7 @@ export function todoIdToName(todos, projects, personnels, priorities) {
 
     return namedTodos
 }
+
+export function tagIdToName(tag_id, allTags) {
+    return allTags.filter(tag => tag.id == tag_id)[0].name
+}

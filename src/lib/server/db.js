@@ -13,7 +13,9 @@ const staticQueries = {
     "selectTodos": "select * from todos",
     "selectAssociates": "select * from associate_ids",
     "selectSupervisors": "select * from supervisor_ids",
-    "selectTags": "select * from tags"
+    "selectTags": "select * from tags",
+    "selectAssetTags": "select * from asset_tags",
+    "selectAccountTags": "select * from account_tags"
 }
 
 async function getQuery(query) {
@@ -45,12 +47,26 @@ export async function insertAccount(context, username, password, url, expiration
         '${expiration_date}')`)
 }
 
-export async function insertTag(type, name) {
-    return getQuery(`insert into tags 
-    (type, name) 
-    values(
-        '${type}', 
-        '${name}')`)
+export async function insertAssetTag(asset_id, tag_ids) {
+    let query = "insert into asset_tags (asset_id, tag_id) values ";
+
+    for (let i = 0; i < tag_ids.length; i++) {
+        if (i != tag_ids.length - 1) { query += `(${asset_id}, ${tag_ids[i]}),` }
+        else { query += `(${asset_id}, ${tag_ids[i]})` }
+    }
+
+    return getQuery(query)
+}
+
+export async function insertAccountTag(account_id, tag_ids) {
+    let query = "insert into account_tags (account_id, tag_id) values ";
+
+    for (let i = 0; i < tag_ids.length; i++) {
+        if (i != tag_ids.length - 1) { query += `(${account_id}, ${tag_ids[i]}), ` }
+        else { query += `(${account_id}, ${tag_ids[i]})` }
+    }
+
+    return getQuery(query)
 }
 
 export async function insertTodo(title, taskmaster_id, project_id, task_context, expected_deadline, priority_id) {
@@ -154,6 +170,22 @@ export async function getTags() {
     return getQuery(staticQueries["selectTags"]);
 }
 
+export async function getAssetTags() {
+    return getQuery(staticQueries["selectAssetTags"]);
+}
+
+export async function getAccountTags() {
+    return getQuery(staticQueries["selectAccountTags"]);
+}
+
 export async function getLatestTodo() {
-    return getQuery("select id from todos order by id limit 1")
+    return getQuery("select id from todos order by id desc limit 1")
+}
+
+export async function getLatestAccount() {
+    return getQuery("select id from accounts order by id desc limit 1")
+}
+
+export async function getLatestAsset() {
+    return getQuery("select id from assets order by id desc limit 1")
 }

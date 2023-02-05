@@ -1,6 +1,6 @@
 <script>
     import GivenTodosTable from "$lib/components/todos/givenTodosTable.svelte";
-    import NewTodoForm from "$lib/components/todos/newTodoForm.svelte";
+    import NewTodoMoodle from "$lib/components/todos/newTodoMoodle.svelte";
     import TakenTodosTable from "$lib/components/todos/takenTodosTable.svelte";
 
     export let data;
@@ -12,8 +12,17 @@
         watchingTodos,
         givenTodos,
     } = data;
+
+    let showFormMoodle = false;
+    function toggleMoodle() {
+        showFormMoodle = !showFormMoodle;
+    }
 </script>
 
-<NewTodoForm {personnels} {projects} {priorities} />
+<div class="centered-div">
+    <button on:click={toggleMoodle}>Submit New Account</button>
+</div>
+
 <TakenTodosTable {takenTodos} {watchingTodos} />
 <GivenTodosTable {givenTodos} />
+<NewTodoMoodle {personnels} {projects} {priorities} {showFormMoodle} />

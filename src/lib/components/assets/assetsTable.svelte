@@ -1,7 +1,10 @@
 <script>
     import ImageMoodle from "$lib/components/general/imageMoodle.svelte";
+    import { tagIdToName } from "$lib/utils/idToName";
     import { onMount } from "svelte";
     export let assets;
+    export let allTags;
+    export let assetTags;
 
     let showImageMoodle = false;
     let selectedAssetSrc;
@@ -24,6 +27,12 @@
             <h4>{asset.title}</h4>
 
             <p>{asset.content}</p>
+
+            <div id="tagsDiv">
+                {#each assetTags.filter((tag) => tag.asset_id == asset.id) as assetTag}
+                    <p>{tagIdToName(assetTag.tag_id, allTags)},</p>
+                {/each}
+            </div>
         </div>
     {/each}
 </div>
@@ -40,6 +49,10 @@
         grid-template-columns: repeat(6, 10vw);
         grid-template-rows: 30vh;
         grid-gap: 4vw;
+    }
+
+    #tagsDiv {
+        display: flex;
     }
 
     img {

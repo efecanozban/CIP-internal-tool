@@ -1,8 +1,18 @@
 <script>
     import { DdMmYyyy } from "$lib/utils/stringModifiers";
+    import { tagIdToName } from "$lib/utils/idToName";
     export let accounts;
+    export let accountTags;
+    export let allTags;
 
-    let tableHeadings = ["Context", "Username", "Password", "URL"];
+    let tableHeadings = [
+        "Context",
+        "Username",
+        "Password",
+        "URL",
+        "Expiration Date",
+        "Tags",
+    ];
 </script>
 
 <div class="centered-div">
@@ -21,7 +31,11 @@
                     <td>{account.password}</td>
                     <td>{account.url}</td>
                     <td>{DdMmYyyy(account.expiration_date)}</td>
-                    <td>{account.tags}</td>
+                    <td>
+                        {#each accountTags.filter((tag) => tag.account_id == account.id) as accountTag}
+                            {tagIdToName(accountTag.tag_id, allTags)},
+                        {/each}
+                    </td>
                 </tr>
             {/each}
         </tbody>

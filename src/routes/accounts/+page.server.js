@@ -1,14 +1,17 @@
-import { getAccounts, insertAccount, getUserFromSession, getTags, insertTag } from "$lib/server/db.js";
-import { accountFilter } from "$lib/utils/filters";
+import { getAccounts, insertAccount, getUserFromSession, getTags, getAccountTags, insertAccountTag, getLatestAccount } from "$lib/server/db.js";
+import { accountFilter, tagsFilter, accountTagsFilter } from "$lib/utils/filters";
 
 export async function load({ cookies }) {
-    let allAccounts = await getAccounts();
     let user = await getUserFromSession(cookies.get("sessionid"))
-    let tags = await getTags();
+    let allAccounts = await getAccounts();
+    let alltags = await getTags();
+    let accountTags = await getAccountTags();
+    let filtederAccounts = accountFilter(allAccounts, user[0].read_privileges, alltags)
 
     return {
-        accounts: accountFilter(allAccounts, user[0].read_privileges, tags),
-        tags: tags
+        accounts: filtederAccounts,
+        allTags: tagsFilter(alltags, "Accounts"),
+        accountTags: accountTagsFilter(filtederAccounts, accountTags)
     }
 }
 
@@ -16,7 +19,8 @@ export async function load({ cookies }) {
 export const actions = {
     uploadNewAccount: async ({ request }) => {
         const data = await request.formData();
-        await insertAccount(data.get("context"), data.get("username"), data.get("password"), data.get("url"), data.get("expiration_date"), data.get("tags"))
-        await insertTags
+        await insertAccount(data.get("context"), data.get("username"), data.get("password"), data.get("url"), data.get("expiration_date"))
+        let lastAccount = await getLatestAccount()
+        await insertAccountTag(lastAccount[0].id, data.getAll("tag"))
     }
 }

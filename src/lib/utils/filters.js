@@ -73,3 +73,18 @@ function extendTodo(todo, allAssociates, allSupervisors) {
 
     return extendedTodo
 }
+
+export function tagsFilter(tags, filterType) {
+    let filteredTags = tags.filter(tag => tag.type == filterType)
+    return filteredTags
+}
+
+export function accountTagsFilter(accounts, tags) {
+    let account_ids = accounts.map(account => account.id)
+    return tags.filter(tag => account_ids.includes(tag.account_id))
+}
+
+export function assetTagsFilter(assets, tags) {
+    let asset_ids = assets.map(asset => asset.id)
+    return tags.filter(tag => asset_ids.includes(tag.asset_id))
+}
