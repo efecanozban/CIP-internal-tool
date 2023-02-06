@@ -10,7 +10,12 @@ export const actions = {
         const res = await getUser(username, password)
 
         if (res.success) {
-            cookies.set('sessionid', await createSession(res.user));
+            cookies.set('sessionid', await createSession(res.user), {
+                httpOnly: true,
+                secure: false,
+                path: '/',
+                sameSite: 'lax',
+            });
             return { success: true };
         }
         else {

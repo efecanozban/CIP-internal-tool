@@ -19,6 +19,7 @@ export async function load({ cookies }) {
 export const actions = {
     uploadNewAsset: async ({ request }) => {
         const data = await request.formData();
+
         await insertAsset(data.get("title"), data.get("fileContent"), data.get("content"))
         let lastAsset = await getLatestAsset();
         await insertAssetTag(lastAsset[0].id, data.getAll("tag"))

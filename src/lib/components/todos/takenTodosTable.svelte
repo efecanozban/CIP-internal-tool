@@ -61,15 +61,15 @@
 
 <style>
     .taken {
-        background-color: rgb(0, 0, 255, 0.3);
+        background-color: rgba(132, 132, 193, 0.7);
     }
 
     .watching {
-        background-color: rgb(0, 255, 0, 0.3);
+        background-color: rgba(252, 105, 105, 0.7);
     }
 
     table {
-        width: 80vw;
+        width: 90vw;
     }
 
     th {
@@ -78,5 +78,15 @@
 
     td {
         font-weight: 600;
+    }
+
+    tr td:first-child {
+        border-top-left-radius: 4vh;
+        border-bottom-left-radius: 4vh;
+    }
+
+    tr td:last-child {
+        border-top-right-radius: 4vh;
+        border-bottom-right-radius: 4vh;
     }
 </style>

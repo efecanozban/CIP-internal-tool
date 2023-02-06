@@ -45,7 +45,7 @@
 
 <style>
     table {
-        width: 80vw;
+        width: 90vw;
     }
 
     th {
