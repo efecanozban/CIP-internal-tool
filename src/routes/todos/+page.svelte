@@ -13,19 +13,22 @@
         givenTodos,
     } = data;
 
-    let showFormMoodle = false;
     function toggleMoodle() {
-        showFormMoodle = !showFormMoodle;
+        document.getElementById("todoMoodle").classList.remove("notDisplay");
     }
 </script>
 
 <div class="centered-div">
-    <button on:click={toggleMoodle} id="newTodoButton">Submit New Todo</button>
+    <button
+        on:click={toggleMoodle}
+        id="newTodoButton"
+        class="neomorphic-normal-light">Submit New Todo</button
+    >
 </div>
 
 <TakenTodosTable {takenTodos} {watchingTodos} />
 <GivenTodosTable {givenTodos} />
-<NewTodoMoodle {personnels} {projects} {priorities} {showFormMoodle} />
+<NewTodoMoodle {personnels} {projects} {priorities} />
 
 <style>
     #newTodoButton {
@@ -33,10 +36,11 @@
 
         width: 20vw;
         height: 4vh;
-        border-radius: 4vh;
-        background-color: rgb(0, 0, 0);
+        border-radius: 1vh;
         font-size: large;
         font-weight: 600;
-        color: rgb(255, 255, 255);
+        background-color: var(--color-light);
+        border: none;
+        color: var(--text-color);
     }
 </style>

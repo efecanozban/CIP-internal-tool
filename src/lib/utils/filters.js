@@ -34,30 +34,31 @@ export function assetFilter(assets, userTags) {
     return res;
 }
 
-export function todoFilter(todos, allAssociates, allSupervisors, personnel_id) {
+export function todoFilter(todos, allAssociates, allSupervisors, allInformedAssociates, personnel_id) {
     let takenTodos = [];
     let givenTodos = [];
     let watchingTodos = [];
 
     todos.forEach(todo => {
-        if (todo.taskmaster_id == personnel_id) { givenTodos.push(extendTodo(todo, allAssociates, allSupervisors)) }
+        if (todo.taskmaster_id == personnel_id) { givenTodos.push(extendTodo(todo, allAssociates, allSupervisors, allInformedAssociates)) }
 
         allAssociates.forEach(associate => {
-            if (associate.associate_id == personnel_id && todo.id == associate.todo_id) { takenTodos.push(extendTodo(todo, allAssociates, allSupervisors)) }
+            if (associate.associate_id == personnel_id && todo.id == associate.todo_id) { takenTodos.push(extendTodo(todo, allAssociates, allSupervisors, allInformedAssociates)) }
         })
 
         allSupervisors.forEach(supervisor => {
-            if (supervisor.supervisor_id == personnel_id && todo.id == supervisor.todo_id) { watchingTodos.push(extendTodo(todo, allAssociates, allSupervisors)) }
+            if (supervisor.supervisor_id == personnel_id && todo.id == supervisor.todo_id) { watchingTodos.push(extendTodo(todo, allAssociates, allSupervisors, allInformedAssociates)) }
         })
     })
 
     return { "takenTodos": takenTodos, "givenTodos": givenTodos, "watchingTodos": watchingTodos }
 }
 
-function extendTodo(todo, allAssociates, allSupervisors) {
+function extendTodo(todo, allAssociates, allSupervisors, allInformedAssociates) {
     let extendedTodo = todo;
     let associates = []
     let supervisors = []
+    let informedAssociates = []
 
     allAssociates?.forEach(associate => {
         if (associate.todo_id == todo.id) { associates.push(associate.associate_id) }
@@ -67,9 +68,13 @@ function extendTodo(todo, allAssociates, allSupervisors) {
         if (supervisor.todo_id == todo.id) { supervisors.push(supervisor.supervisor_id) }
     })
 
+    allInformedAssociates?.forEach(informedAssociate => {
+        if (informedAssociate.todo_id == todo.id) { informedAssociates.push(informedAssociate.associate_id) }
+    })
+
     extendedTodo["associates"] = associates;
     extendedTodo["supervisors"] = supervisors;
-    extendedTodo["informed_associates"] = [];
+    extendedTodo["informed_associates"] = informedAssociates;
 
     return extendedTodo
 }

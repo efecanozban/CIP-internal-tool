@@ -12,7 +12,10 @@
 </script>
 
 <div class="centered-div">
-    <button on:click={toggleMoodle} id="newAssetButton">Submit New Asset</button
+    <button
+        on:click={toggleMoodle}
+        id="newAssetButton"
+        class="neomorphic-normal-light">Submit New Asset</button
     >
 </div>
 
@@ -27,10 +30,11 @@
 
         width: 20vw;
         height: 4vh;
-        border-radius: 4vh;
-        background-color: rgb(0, 0, 0);
+        border-radius: 1vh;
+        background-color: var(--color-light);
+        border: none;
         font-size: large;
         font-weight: 600;
-        color: rgb(255, 255, 255);
+        color: var(--text-color);
     }
 </style>

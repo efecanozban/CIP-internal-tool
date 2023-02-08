@@ -1,10 +1,24 @@
+:root {
+    --color-light: rgb(220, 220, 220);
+    --color-R-light: 220;
+    --color-G-light: 220;
+    --color-B-light: 220;
+
+    --color-dark: rgb(70, 0, 0);
+    --color-R-dark: 70;
+    --color-G-dark: 70;
+    --color-B-dark: 70;
+
+    --text-color: rgb(2, 11, 50);
+}
+
 html {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 body {
     margin: 0px;
-    background-color: rgb(200, 200, 200);
+    background-color: var(--color-light);
 }
 
 .centered-div {
@@ -35,7 +49,6 @@ body {
     display: flex;
     justify-content: center;
     width: 20vw;
-    background-color: rgb(0, 0, 0);
     border-radius: 4vh;
     padding: 1vh 0;
 }
@@ -51,4 +64,68 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgb(0, 0, 0, 0.8);
+}
+
+.headerlink {
+    padding: 0.4vh 2vw;
+    text-decoration: none;
+    color: white;
+    font-size: large;
+    font-weight: 600;
+    text-shadow: 2px 2px #000000;
+}
+
+.headerlink:first-child {
+    border-top-left-radius: 4vh;
+    border-bottom-left-radius: 4vh;
+}
+
+.headerlink:last-child {
+    border-top-right-radius: 4vh;
+    border-bottom-right-radius: 4vh;
+}
+
+.neomorphic-normal-light {
+    box-shadow: 2px 2px 4px rgb(calc(var(--color-R-light) - 50),
+            calc(var(--color-G-light) - 50),
+            calc(var(--color-B-light) - 50)),
+        -2px -2px 4px rgb(calc(var(--color-R-light) + 50),
+            calc(var(--color-G-light) + 50),
+            calc(var(--color-B-light) + 50));
+}
+
+.neomorphic-inset-light {
+    box-shadow: inset 2px 2px 4px rgb(calc(var(--color-R-light) - 50),
+            calc(var(--color-G-light) - 50),
+            calc(var(--color-B-light) - 50)),
+        inset -2px -2px 4px rgb(calc(var(--color-R-light) + 50),
+            calc(var(--color-G-light) + 50),
+            calc(var(--color-B-light) + 50));
+}
+
+.neomorphic-normal-dark {
+    box-shadow: 2px 2px 4px rgb(calc(var(--color-R-dark) - 40),
+            calc(var(--color-G-dark) - 40),
+            calc(var(--color-B-dark) - 40)),
+        -2px -2px 4px rgb(calc(var(--color-R-dark) + 40),
+            calc(var(--color-G-dark) + 40),
+            calc(var(--color-B-dark) + 40));
+}
+
+.neomorphic-inset-dark {
+    box-shadow: inset 2px 2px 4px rgb(calc(var(--color-R-dark) - 40),
+            calc(var(--color-G-dark) - 40),
+            calc(var(--color-B-dark) - 40)),
+        inset -2px -2px 4px rgb(calc(var(--color-R-dark) + 40),
+            calc(var(--color-G-dark) + 40),
+            calc(var(--color-B-dark) + 40));
+}
+
+button:active {
+    box-shadow: inset 2px 2px 4px rgb(calc(var(--color-R-light) - 50),
+            calc(var(--color-G-light) - 50),
+            calc(var(--color-B-light) - 50)),
+        inset -2px -2px 4px rgb(calc(var(--color-R-light) + 50),
+            calc(var(--color-G-light) + 50),
+            calc(var(--color-B-light) + 50));
 }

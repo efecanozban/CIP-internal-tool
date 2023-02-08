@@ -7,34 +7,34 @@
     export let data;
     let { accounts, allTags, accountTags } = data;
 
-    let showFormMoodle = false;
     function toggleMoodle() {
-        showFormMoodle = !showFormMoodle;
+        document.getElementById("accountMoodle").classList.remove("notDisplay");
     }
 </script>
 
 <div class="centered-div">
-    <button on:click={toggleMoodle} id="newAccountButton">
-        <PlusCircle color="#ffffff" size="2vh" />
-
+    <button
+        on:click={toggleMoodle}
+        id="newAccountButton"
+        class="neomorphic-normal-light"
+    >
         &ensp Submit New Account
     </button>
 </div>
 
-<NewAccountMoodle {allTags} {showFormMoodle} />
+<NewAccountMoodle {allTags} />
 <AccountsTable {accounts} {accountTags} {allTags} />
 
 <style>
     #newAccountButton {
         margin-bottom: 2vh;
-        display: flex;
-        justify-content: center;
         width: 20vw;
-        height: 3vh;
-        border-radius: 4vh;
-        background-color: rgb(0, 0, 0);
+        height: 4vh;
+        border-radius: 1vh;
+        background-color: var(--color-light);
         font-size: large;
         font-weight: 600;
-        color: rgb(255, 255, 255);
+        color: var(--text-color);
+        border: none;
     }
 </style>

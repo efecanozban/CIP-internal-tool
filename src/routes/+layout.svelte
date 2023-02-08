@@ -4,6 +4,17 @@
 
     export let data;
     let { logedIn } = data;
+
+    function toggleNavButtons({ srcElement }) {
+        document.getElementById("layoutNav").childNodes.forEach((a) => {
+            if (a.tagName == "A") {
+                a.className = "headerlink";
+                a.classList.add("neomorphic-normal-dark");
+            }
+        });
+        srcElement.classList.remove("neomorphic-normal-dark");
+        srcElement.classList.add("neomorphic-inset-dark");
+    }
 </script>
 
 <header>
@@ -14,14 +25,27 @@
 
         {#if logedIn}
             <form method="POST" action="/?/logout" id="logoutForm">
-                <button id="logoutButton">Logout</button>
+                <button id="logoutButton" class="neomorphic-normal-dark"
+                    >Logout</button
+                >
             </form>
 
-            <nav>
-                <a class="headerlink" href="/">Home</a>
-                <a class="headerlink" href="/assets">Assets</a>
-                <a class="headerlink" href="/todos">Todos</a>
-                <a class="headerlink" href="/accounts">Accounts</a>
+            <nav id="layoutNav">
+                <a
+                    class="headerlink neomorphic-normal-dark"
+                    href="/assets"
+                    on:click={toggleNavButtons}>Assets</a
+                >
+                <a
+                    class="headerlink neomorphic-normal-dark"
+                    href="/todos"
+                    on:click={toggleNavButtons}>Todos</a
+                >
+                <a
+                    class="headerlink neomorphic-normal-dark"
+                    href="/accounts"
+                    on:click={toggleNavButtons}>Accounts</a
+                >
             </nav>
         {/if}
 
@@ -39,23 +63,23 @@
 
 <style>
     .header {
-        background-color: black;
+        background-color: var(--color-dark);
         display: flex;
         height: 8vh;
         align-items: center;
         padding: 0 2vw;
     }
 
-    .headerlink {
-        margin-right: 10px;
-        text-decoration: none;
-        color: white;
-    }
-
     nav {
         position: absolute;
         transform: translate(-50%, 0);
         left: 50%;
+    }
+
+    button {
+        font-size: large;
+        font-weight: 600;
+        text-shadow: 2px 2px #000000;
     }
 
     #logo {
@@ -70,6 +94,25 @@
 
     #logoutButton {
         width: 8vw;
+        height: 2.4vh;
         border-radius: 1vh;
+        background-color: var(--color-dark);
+        border: none;
+        color: white;
+    }
+
+    button:active {
+        box-shadow: inset 2px 2px 4px
+                rgb(
+                    calc(var(--color-R-dark) - 40),
+                    calc(var(--color-G-dark) - 40),
+                    calc(var(--color-B-dark) - 40)
+                ),
+            inset -2px -2px 4px
+                rgb(
+                    calc(var(--color-R-dark) + 40),
+                    calc(var(--color-G-dark) + 40),
+                    calc(var(--color-B-dark) + 40)
+                );
     }
 </style>

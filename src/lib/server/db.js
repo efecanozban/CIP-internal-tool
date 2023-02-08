@@ -7,15 +7,19 @@ const staticQueries = {
     "selectUsers": "select * from users",
     "selectAccounts": "select * from accounts",
     "selectAssets": "select * from assets",
-    "selectPersonnels": "select * from personnels",
+    "selectPersonnels": "select * from personnels order by name asc",
     "selectProjects": "select * from projects",
     "selectPriorities": "select * from priorities",
     "selectTodos": "select * from todos",
     "selectAssociates": "select * from associate_ids",
     "selectSupervisors": "select * from supervisor_ids",
+    "selectInformedAssociates": "select * from informed_associate_ids",
     "selectTags": "select * from tags",
     "selectAssetTags": "select * from asset_tags",
-    "selectAccountTags": "select * from account_tags"
+    "selectAccountTags": "select * from account_tags",
+    "selectLatestTodo": "select id from todos order by id desc limit 1",
+    "selectLatestAsset": "select id from assets order by id desc limit 1",
+    "selectLatestAccount": "select id from accounts order by id desc limit 1",
 }
 
 async function getQuery(query) {
@@ -154,6 +158,10 @@ export async function getSupervisors(todoId) {
     return getQuery(staticQueries["selectSupervisors"]);
 }
 
+export async function getInformedAssociates(todoId) {
+    return getQuery(staticQueries["selectInformedAssociates"]);
+}
+
 export async function getPersonnels() {
     return getQuery(staticQueries["selectPersonnels"]);
 }
@@ -179,13 +187,29 @@ export async function getAccountTags() {
 }
 
 export async function getLatestTodo() {
-    return getQuery("select id from todos order by id desc limit 1")
+    return getQuery(staticQueries["selectLatestTodo"])
 }
 
 export async function getLatestAccount() {
-    return getQuery("select id from accounts order by id desc limit 1")
+    return getQuery(staticQueries["selectLatestAccount"])
 }
 
 export async function getLatestAsset() {
-    return getQuery("select id from assets order by id desc limit 1")
+    return getQuery(staticQueries["selectLatestAsset"])
+}
+
+export async function deleteTodo(todoId) {
+    return getQuery(`delete from todos where id = ${todoId}`)
+}
+
+export async function deleteAssociateIds(todoId) {
+    return getQuery(`delete from associate_ids where todo_id = ${todoId}`)
+}
+
+export async function deleteSupervisorIds(todoId) {
+    return getQuery(`delete from supervisor_ids where todo_id = ${todoId}`)
+}
+
+export async function confirmTodo(todoId, associateId) {
+    return getQuery(`insert into informed_associate_ids (todo_id, associate_id) values(${todoId}, ${associateId})`)
 }

@@ -26,12 +26,14 @@
         <tbody>
             {#each accounts as account}
                 <tr>
-                    <td>{account.context}</td>
-                    <td>{account.username}</td>
-                    <td>{account.password}</td>
-                    <td>{account.url}</td>
-                    <td>{DdMmYyyy(account.expiration_date)}</td>
-                    <td>
+                    <td class="neomorphic-normal-light">{account.context}</td>
+                    <td class="neomorphic-normal-light">{account.username}</td>
+                    <td class="neomorphic-normal-light">{account.password}</td>
+                    <td class="neomorphic-normal-light">{account.url}</td>
+                    <td class="neomorphic-normal-light"
+                        >{DdMmYyyy(account.expiration_date)}</td
+                    >
+                    <td class="neomorphic-normal-light">
                         {#each accountTags.filter((tag) => tag.account_id == account.id) as accountTag}
                             {tagIdToName(accountTag.tag_id, allTags)},
                         {/each}
@@ -45,6 +47,7 @@
 <style>
     table {
         width: 50vw;
+        color: var(--text-color);
     }
 
     th {
@@ -53,5 +56,20 @@
 
     td {
         font-weight: 600;
+        padding-left: 0.5vw;
+    }
+
+    tr {
+        line-height: 1.6rem;
+    }
+
+    tr td:first-child {
+        border-top-left-radius: 4vh;
+        border-bottom-left-radius: 4vh;
+    }
+
+    tr td:last-child {
+        border-top-right-radius: 4vh;
+        border-bottom-right-radius: 4vh;
     }
 </style>

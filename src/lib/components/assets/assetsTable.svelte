@@ -6,14 +6,15 @@
     export let allTags;
     export let assetTags;
 
-    let showImageMoodle = false;
     let selectedAssetSrc;
 
     onMount(() => {
         document.querySelectorAll("#assetDiv").forEach(function (asset) {
             asset.addEventListener("click", function () {
                 selectedAssetSrc = asset.getElementsByTagName("img")[0].src;
-                showImageMoodle = !showImageMoodle;
+                document
+                    .getElementById("imageMoodle")
+                    .classList.remove("notDisplay");
             });
         });
     });
@@ -21,8 +22,8 @@
 
 <div id="assetsTable">
     {#each assets as asset}
-        <div id="assetDiv">
-            <img src={asset.image} alt="" />
+        <div id="assetDiv" class="neomorphic-normal-light">
+            <img src={asset.image} alt="" class="neomorphic-normal-light" />
 
             <h4>{asset.title}</h4>
 
@@ -37,7 +38,7 @@
     {/each}
 </div>
 
-<ImageMoodle src={selectedAssetSrc} {showImageMoodle} />
+<ImageMoodle src={selectedAssetSrc} />
 
 <style>
     #assetsTable {
@@ -46,9 +47,14 @@
         top: 3vh;
         width: 85vw;
         display: grid;
-        grid-template-columns: repeat(6, 10vw);
-        grid-template-rows: 30vh;
-        grid-gap: 4vw;
+        grid-template-columns: repeat(6, 12vw);
+        grid-template-rows: 40vh;
+        grid-gap: 1.6vw;
+    }
+
+    #assetDiv {
+        padding: 1vh 1vw;
+        border-radius: 3vh;
     }
 
     #tagsDiv {
@@ -58,5 +64,6 @@
     img {
         width: 10vw;
         height: 20vh;
+        border-radius: 3vh;
     }
 </style>
