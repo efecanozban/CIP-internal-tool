@@ -126,8 +126,13 @@ export async function getUser(username, password) {
 
 export async function createSession(user) {
     const sessionID = uuidv4()
-    await getQuery(`insert into sessions (id, user_id) values ('${sessionID}', ${user.id})`)
+    await getQuery(`insert into sessions (id, user_id, created_at) values ('${sessionID}', ${user.id}, current_timestamp)`)
     return sessionID
+}
+
+export async function deleteSession(sessionId) {
+    return getQuery(`delete from sessions where id = '${sessionId}'`)
+
 }
 
 export async function getUserFromSession(sessionId) {

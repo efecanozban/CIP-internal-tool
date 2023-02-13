@@ -2,8 +2,6 @@
     import AccountsTable from "$lib/components/accounts/accountsTable.svelte";
     import NewAccountMoodle from "$lib/components/accounts/newAccountMoodle.svelte";
 
-    import { PlusCircle } from "svelte-heros-v2";
-
     export let data;
     let { accounts, allTags, accountTags } = data;
 
@@ -18,7 +16,7 @@
         id="newAccountButton"
         class="neomorphic-normal-light"
     >
-        &ensp Submit New Account
+        Submit New Account
     </button>
 </div>
 

@@ -3,13 +3,17 @@
     export let projects;
     export let priorities;
 
+    function tagDivClicked() {
+        this.childNodes[2].click();
+    }
+
     function closeMoodle() {
-        document.getElementById("todoMoodle").classList.add("notDisplay");
+        document.getElementById("newTodoMoodle").classList.add("notDisplay");
     }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="backDrop notDisplay" on:click|self={closeMoodle} id="todoMoodle">
+<div class="backDrop notDisplay" on:click|self={closeMoodle} id="newTodoMoodle">
     <div class="centered-div" id="formDiv">
         <form method="POST" action="/todos?/uploadNewTodo">
             <h2>Submit New Todo</h2>
@@ -20,7 +24,9 @@
             <label for="taskMaster">Task Master</label>
             <select name="taskMaster" class="neomorphic-normal-light">
                 {#each personnels as personnel}
-                    <option value={personnel.id}>{personnel.name}</option>
+                    <option value={personnel.id}
+                        >{personnel.name} {personnel.sirname}</option
+                    >
                 {/each}
             </select>
 
@@ -52,10 +58,13 @@
                 {/each}
             </select>
 
-            <p>Associates</p>
+            <p style="margin: 0">Associates</p>
             <div>
                 {#each personnels as personnel}
-                    <div class="neomorphic-normal-light">
+                    <div
+                        class="neomorphic-normal-light tagSpan"
+                        on:click|self={tagDivClicked}
+                    >
                         <label for="associate"
                             >{personnel.name} {personnel.sirname}</label
                         >
@@ -69,10 +78,13 @@
                 {/each}
             </div>
 
-            <p>Supervisors</p>
+            <p style="margin: 0">Supervisors</p>
             <div>
                 {#each personnels as personnel}
-                    <div class="neomorphic-normal-light">
+                    <div
+                        class="neomorphic-normal-light tagSpan"
+                        on:click|self={tagDivClicked}
+                    >
                         <label for="supervisor"
                             >{personnel.name} {personnel.sirname}</label
                         >
@@ -99,7 +111,7 @@
         top: 30%;
 
         width: 80vw;
-        height: 60vh;
+        height: 70vh;
 
         background-color: var(--color-light);
         border-radius: 4vh;
@@ -123,6 +135,10 @@
         padding-left: 0.5vw;
         border-radius: 4vh;
         background-color: var(--color-light);
+    }
+
+    .tagSpan {
+        margin-bottom: 1vh;
     }
 
     label,

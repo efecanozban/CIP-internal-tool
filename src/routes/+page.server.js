@@ -1,4 +1,4 @@
-import { getUser, createSession, getUserFromSession } from '$lib/server/db'
+import { getUser, createSession, getUserFromSession, deleteSession } from '$lib/server/db'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -24,6 +24,8 @@ export const actions = {
     },
 
     logout: async ({ cookies }) => {
+        await deleteSession(cookies.get('sessionid'))
         cookies.delete('sessionid')
+
     }
 }

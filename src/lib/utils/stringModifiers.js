@@ -45,3 +45,13 @@ export function DdMmYyyy(date) {
 
     return dd + '/' + mm + '/' + yyyy;
 }
+
+export function DdMmYyyyToYyyyMmDd(date) {
+    let resDate = ""
+    resDate += date.substring(6, 10)
+    resDate += "-"
+    resDate += date.substring(3, 5)
+    resDate += "-"
+    resDate += date.substring(0, 2)
+    return resDate
+}

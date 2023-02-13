@@ -39,6 +39,9 @@ export const actions = {
         await insertAssociates(todo_id[0].id, data.getAll("associate"))
         await insertSupervisors(todo_id[0].id, data.getAll("supervisor"))
     },
+    updateNewTodo: async ({ request }) => {
+        const data = await request.formData();
+    },
     deleteTodo: async ({ request }) => {
         const data = await request.formData();
         await deleteSupervisorIds(data.get("todoId"))

@@ -2,6 +2,7 @@
     import { msToDate, DdMmYyyy } from "$lib/utils/stringModifiers.js";
     export let takenTodos;
     export let watchingTodos;
+    export let selectedTodo;
 
     let tableHeadings = [
         "Task Title",
@@ -17,7 +18,7 @@
     ];
 </script>
 
-<div id="todoContainer">
+<div id="todoContainer" class="hide-scroll">
     <table>
         <thead>
             {#each tableHeadings as heading}
@@ -27,7 +28,7 @@
 
         <tbody>
             {#each takenTodos as todo}
-                <tr class="taken">
+                <tr class="taken todoRow">
                     <td class="neomorphic-inset-light">{todo.title}</td>
                     <td class="neomorphic-inset-light">{todo.project}</td>
                     <td class="neomorphic-inset-light">{todo.taskmaster}</td>
@@ -74,7 +75,7 @@
             {/each}
 
             {#each watchingTodos as todo}
-                <tr class="watching">
+                <tr class="watching todoRow">
                     <td class="neomorphic-normal-light">{todo.title}</td>
                     <td class="neomorphic-normal-light">{todo.project}</td>
                     <td class="neomorphic-normal-light">{todo.taskmaster}</td>
@@ -118,7 +119,7 @@
     #todoContainer {
         overflow-x: scroll;
         width: 90vw;
-        margin: auto;
+        margin: 0 auto 3vh auto;
     }
 
     table {

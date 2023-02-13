@@ -11,12 +11,12 @@
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"svelte": "^3.54.0",
-		"svelte-heros-v2": "^0.3.16",
 		"vite": "^4.0.0"
 	},
 	"type": "module",
 	"dependencies": {
 		"pg": "^8.9.0",
+		"svelte-fa": "^3.0.3",
 		"uuid": "^9.0.0"
 	}
 }

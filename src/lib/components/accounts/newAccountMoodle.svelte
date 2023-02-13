@@ -98,13 +98,6 @@
         background-color: var(--color-light);
     }
 
-    .tagSpan {
-        width: 15vw;
-        padding-right: 1vw;
-        border-radius: 4vh;
-        margin-bottom: -1vh;
-    }
-
     label,
     p {
         padding-left: 1vw;

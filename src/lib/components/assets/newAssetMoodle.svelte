@@ -3,7 +3,7 @@
     export let allTags;
 
     function tagDivClicked() {
-        this.childNodes[2].click()
+        this.childNodes[2].click();
     }
 
     function closeMoodle() {
@@ -117,13 +117,6 @@
 
     input[type="file"] {
         padding: 0.5vh 0 0.1vh 1vw;
-    }
-
-    .tagSpan {
-        width: 15vw;
-        padding-right: 1vw;
-        border-radius: 4vh;
-        margin-bottom: -1vh;
     }
 
     label,

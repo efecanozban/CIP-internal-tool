@@ -1,6 +1,7 @@
 <script>
     import { msToDate, DdMmYyyy } from "$lib/utils/stringModifiers";
     export let givenTodos;
+    export let selectedTodo;
 
     let tableHeadings = [
         "Task Title",
@@ -16,7 +17,7 @@
     ];
 </script>
 
-<div id="todoContainer">
+<div id="todoContainer" class="hide-scroll">
     <table>
         <thead>
             {#each tableHeadings as heading}
@@ -26,7 +27,7 @@
 
         <tbody>
             {#each givenTodos as todo}
-                <tr>
+                <tr class="todoRow">
                     <td class="neomorphic-normal-light">{todo.title}</td>
                     <td class="neomorphic-normal-light">{todo.project}</td>
                     <td class="neomorphic-normal-light">{todo.taskmaster}</td>

@@ -19,7 +19,9 @@ export async function load({ cookies }) {
 export const actions = {
     uploadNewAccount: async ({ request }) => {
         const data = await request.formData();
-        await insertAccount(data.get("context"), data.get("username"), data.get("password"), data.get("url"), data.get("expiration_date"))
+        let expirationDate = "9999-12-31";
+        if (data.get("expiration_date") != "") { expirationDate = data.get("expiration_date") }
+        await insertAccount(data.get("context"), data.get("username"), data.get("password"), data.get("url"), expirationDate)
         let lastAccount = await getLatestAccount()
         await insertAccountTag(lastAccount[0].id, data.getAll("tag"))
     }

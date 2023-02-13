@@ -30,9 +30,13 @@
                     <td class="neomorphic-normal-light">{account.username}</td>
                     <td class="neomorphic-normal-light">{account.password}</td>
                     <td class="neomorphic-normal-light">{account.url}</td>
-                    <td class="neomorphic-normal-light"
-                        >{DdMmYyyy(account.expiration_date)}</td
-                    >
+                    <td class="neomorphic-normal-light">
+                        {#if DdMmYyyy(account.expiration_date) == "31/12/9999"}
+                            -
+                        {:else}
+                            {DdMmYyyy(account.expiration_date)}
+                        {/if}
+                    </td>
                     <td class="neomorphic-normal-light">
                         {#each accountTags.filter((tag) => tag.account_id == account.id) as accountTag}
                             {tagIdToName(accountTag.tag_id, allTags)},
