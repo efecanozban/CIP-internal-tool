@@ -16,7 +16,6 @@
 	"type": "module",
 	"dependencies": {
 		"pg": "^8.9.0",
-		"svelte-fa": "^3.0.3",
 		"uuid": "^9.0.0"
 	}
 }
